@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Connect 4</h1>
+    <div id="status">Your turn (Red)</div>
+    <div id="board"></div>
+
+    <div class="controls">
+        <button id="reset">Restart Game</button>
+        <label for="mode">Mode:</label>
+        <select id="mode">
+            <option value="local" selected>Local 2 Players</option>
+            <option value="random">Vs Random AI</option>
+            <option value="heuristic">Vs Smart AI</option>      
+        </select>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

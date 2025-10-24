@@ -1,0 +1,116 @@
+body {
+    font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+    color: #0044cc;
+}
+
+#status {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 80px);
+    grid-template-rows: repeat(6, 80px);
+    gap: 8px;
+    background-color: #0044cc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    background-color: #0e1a40;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.cell:hover {
+    transform: scale(1.1);
+}
+
+.player1 {
+    background-color: #e71111;
+}
+
+.player2 {
+    background-color: #f1c40f;
+}
+
+#reset {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background-color: #0044cc;
+    color: #0e1a40;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'JetBrains Mono'
+}
+
+#reset:hover {
+    transform: scale(1.05);
+    background-color: #0f5fff;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.controls label {
+    font-size: 1rem;
+    color: #fff;
+    margin-right: 5px;
+}
+
+#mode {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #0044cc;
+    color: #0e1a40;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'JetBrains Mono';
+    appearance: none;
+}
+
+#mode:hover {
+    transform: scale(1.05);
+    background-color: #0f5fff;
+}
+
+
+#mode {
+    background-image: linear-gradient(45deg, transparent 50%, #0e1a40 50%),
+                      linear-gradient(135deg, #0e1a40 50%, transparent 50%);
+    background-position: calc(100% - 15px) calc(50% - 2px),
+                         calc(100% - 10px) calc(50% - 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+}
