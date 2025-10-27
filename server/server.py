@@ -5,7 +5,7 @@ from heuristic_agent import HeuristicAgent
 app = Flask(__name__)
 CORS(app)
 
-agent = HeuristicAgent()
+heuristic_agent = HeuristicAgent()
 
 @app.route("/api/heuristic", methods=["POST"])
 def get_move():
@@ -16,10 +16,11 @@ def get_move():
 
     board = data["board"]
     valid_moves = data["valid_moves"]
+    depth = data["depth"]
 
-    move = agent.play(board, valid_moves)
+    move = heuristic_agent.play(board, valid_moves, int(depth))
 
     return jsonify({"move": move})
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000, debug=True)
+    app.run(host="157.26.121.145", port=8000, debug=True)

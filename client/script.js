@@ -1,19 +1,64 @@
 import Renderer from './renderer.js'
 import GameController from './game_controller.js'
 
-const ROWS = 6;
-const COLS = 7;
-let board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
-let currentPlayer = 1;
-let gameOver = false;
-
 const boardEl = document.getElementById('board');
 const statusEl = document.getElementById('status');
 const resetBtn = document.getElementById('reset');
 const modeSel = document.getElementById('mode');
-
-let gameMode = modeSel.value
+const sidenoteLbl = document.getElementById('sidenote');
 
 const renderer = new Renderer(boardEl, statusEl);
 const controller = new GameController(modeSel, resetBtn, renderer);
 
+modeSel.addEventListener("change", () => {
+    refreshSideNote()
+});
+
+function refreshSideNote() {
+    const mode = modeSel.value;
+
+    switch (mode) {
+        case "local":
+            sidenoteLbl.innerHTML = "Simple local 1 vs 1 Connect4. Players play one after each other."
+            break;
+
+        case "random":
+            sidenoteLbl.innerHTML = "Each move the algorithm choose randomly between the 7 column possible and plays it."
+            break;
+
+        case "heuristic1":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 1, so if he sees a critical move he play it but nothing more."
+            break;
+
+        case "heuristic2":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 2, so he will see critical moves and play so that he don't place the circle you were missing to win."
+            break;
+
+        case "heuristic3":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 3, so like the other but it can set up trap for him to win 2 turn in advance but will still get caught if you set up a 2 turn in advance trap."
+            break;
+
+        case "heuristic4":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 4, so he plays like the ones before him but can set up trap and see traps 2 turn in advance. Most humans can't process further than 2 turns in advance."
+            break;
+
+        case "heuristic5":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nDepth 5, the final boss. Can set up trap 3 turn in advance and see oppenents traps 2 turn in advance which makes him untrappable for a human."
+            break;
+        
+        case "heuristic6":
+            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
+            sidenoteLbl.innerHTML += "\n\nDepth 6 + Alph Beta Pruning, the final boss but even further and even faster. Increase depth but faster because it skips path when he understand that they lead to nothing better than he already have."
+            break;
+
+        default:
+            break;
+    }
+}
+
+refreshSideNote()

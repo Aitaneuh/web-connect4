@@ -55,6 +55,14 @@ h1 {
     background-color: #f1c40f;
 }
 
+.player1gray {
+    background-color: #360000;
+}
+
+.player2gray {
+    background-color: #302b00;
+}
+
 #reset {
     padding: 10px 20px;
     font-size: 1rem;
@@ -101,7 +109,6 @@ h1 {
 
 #mode:hover {
     transform: scale(1.05);
-    background-color: #0f5fff;
 }
 
 
@@ -113,4 +120,12 @@ h1 {
     background-size: 5px 5px, 5px 5px;
     background-repeat: no-repeat;
     padding-right: 30px;
+}
+
+#sidenote {
+    margin-top: 10px;
+    font-size: small;
+    transition: ease-in;
+    transition-duration: 300ms;
+    max-width: 1000px;
 }

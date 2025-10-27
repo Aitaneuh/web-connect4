@@ -28,6 +28,7 @@ export default class GameController {
             this.renderer.setStatus(this.mode === 'local'
                 ? `Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'} wins!`
                 : this.game.currentPlayer === 1 ? 'You won!' : 'AI wins!');
+            this.renderer._highlightWin(result.cells)
             return;
         }
 
@@ -37,10 +38,10 @@ export default class GameController {
             this.isHumanTurn = false;
             this.renderer.setStatus(`Random AI's turn...`);
             setTimeout(() => this.randomAIMove(), 300);
-        } else if (this.mode === 'heuristic' && this.game.currentPlayer === 2) {
+        } else if (typeof this.mode === "string" && this.mode.startsWith('heuristic') && this.game.currentPlayer === 2) {
             this.isHumanTurn = false;
             this.renderer.setStatus("Smart AI's turn...");
-            setTimeout(() => this.heuristicAIMove(), 500);
+            setTimeout(() => this.heuristicAlgorithm(this.mode[9]), 300);
         } else if (this.mode !== 'random' && this.mode !== 'local' && this.game.currentPlayer === 2) {
             this.renderer.setStatus("AI's turn...");
         } else {
@@ -70,15 +71,15 @@ export default class GameController {
             .filter(i => i !== null);
     }
 
-    async heuristicAIMove() {
+    async heuristicAlgorithm(depth) {
         let boardFormatted = this._getFormatedBoardForAPI()
 
         const validMoves = this._getValidMoves()
 
-        const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
+        const response = await fetch('http://157.26.121.145:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves })
+            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth})
         });
 
         const data = await response.json();
