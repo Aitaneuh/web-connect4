@@ -68,7 +68,7 @@ This function provides a numeric score used by the **Minimax algorithm** to choo
 
 ---
 
-### 🧮 Minimax Algorithm
+### Minimax Algorithm
 
 Minimax is a **recursive search algorithm** used in two-player games like Connect 4, Chess, or Tic-Tac-Toe.  
 It simulates all possible moves up to a given **depth** and assumes:
