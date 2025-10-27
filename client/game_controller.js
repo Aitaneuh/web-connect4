@@ -76,7 +76,7 @@ export default class GameController {
 
         const validMoves = this._getValidMoves()
 
-        const response = await fetch('http://157.26.121.145:8000/api/heuristic', {
+        const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth})
