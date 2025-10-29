@@ -44,7 +44,7 @@ function handleResults() {
         resTimeVal.style.display = "block";
         resCountLbl.style.display = "block";
         resCountVal.style.display = "block";
-        
+
         resTimeVal.textContent = "-";
         resCountVal.textContent = "-";
     } else {
@@ -70,47 +70,86 @@ function refreshSideNote() {
 
     switch (mode) {
         case "local":
-            sidenoteLbl.innerHTML = "Simple local 1 vs 1 Connect4. Players play one after each other."
+            sidenoteLbl.innerHTML = `
+                Two human players take turns playing on the same board. 
+                A simple, classic 1v1 Connect Four match.
+            `;
             break;
 
         case "random":
-            sidenoteLbl.innerHTML = "Each move the algorithm choose randomly between the 7 column possible and plays it."
+            sidenoteLbl.innerHTML = `
+                This bot picks a random column every move. 
+                No logic, no plan — just pure chaos. 
+                Sometimes it wins, but mostly by accident.
+            `;
             break;
 
         case "heuristic1":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 1, so if he sees a critical move he play it but nothing more."
+            sidenoteLbl.innerHTML = `
+                The AI looks only one move ahead. 
+                It reacts instantly to winning or losing threats, but has no sense of planning.<br><br>
+                Think of it like a beginner who just notices: “Oh, I can win right now!”
+            `;
             break;
 
         case "heuristic2":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 2, so he will see critical moves and play so that he don't place the circle you were missing to win."
+            sidenoteLbl.innerHTML = `
+                Now the AI starts to anticipate one turn in advance. 
+                It can block your immediate threats and set up basic traps, 
+                but still can’t see far beyond the surface.<br><br>
+                A cautious but still short-sighted opponent.
+            `;
             break;
 
         case "heuristic3":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 3, so like the other but it can set up trap for him to win 2 turn in advance but will still get caught if you set up a 2 turn in advance trap."
+            sidenoteLbl.innerHTML = `
+                This version thinks several turns ahead. 
+                It can detect double traps, plan small combos, and punish short-term mistakes.<br><br>
+                A solid opponent that feels much more “human”.
+            `;
             break;
 
         case "heuristic4":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nThis one has a depth of 4, so he plays like the ones before him but can set up trap and see traps 2 turn in advance. Most humans can't process further than 2 turns in advance."
+            sidenoteLbl.innerHTML = `
+                Now it begins to feel dangerous. 
+                With Alpha-Beta Pruning optimizing its calculations, 
+                it sees deeper and plays much faster.<br><br>
+                It can recognize setups that win or lose two turns in advance.
+            `;
             break;
 
         case "heuristic5":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nDepth 5, the final boss. Can set up trap 3 turn in advance and see oppenents traps 2 turn in advance which makes him untrappable for a human."
+            sidenoteLbl.innerHTML = `
+                A strategic thinker. 
+                It explores thousands of future positions, 
+                seeing traps and long-term plays invisible to most players.<br><br>
+                You’ll have to stay sharp — every move matters.
+            `;
             break;
 
         case "heuristic6":
-            sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
-            sidenoteLbl.innerHTML += "\n\nDepth 6 + Alph Beta Pruning, the final boss but even further and even faster. Increase depth but faster because it skips path when he understand that they lead to nothing better than he already have."
+            sidenoteLbl.innerHTML = `
+                This version plays almost perfectly. 
+                It can plan multiple turns ahead and balance attack and defense with surgical precision.<br><br>
+                Thanks to Alpha-Beta Pruning, it’s deep *and* efficient.
+            `;
+            break;
+
+        case "heuristic7":
+            sidenoteLbl.innerHTML = `
+                The ultimate challenge. 
+                This bot sees nearly everything — deep search, efficient pruning, and refined evaluation.<br><br>
+                If you manage to beat it, you’ve basically solved Connect Four.
+            `;
             break;
 
         default:
+            sidenoteLbl.innerHTML = "";
             break;
     }
 }
+
+
 
 refreshSideNote()
 handleCheckbox()
