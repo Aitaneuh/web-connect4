@@ -108,6 +108,10 @@ export default class GameController {
         this.game.reset();
         this.renderer.updateBoard(this.game.board);
         this.renderer.setStatus(this.mode === 'local' ? "Player Red's turn" : 'Your turn');
+        const resTimeVal = document.getElementById("resTimeVal");
+        const resCountVal = document.getElementById("resCountVal");
+        resTimeVal.textContent = "-"
+        resCountVal.textContent = "-"
     }
 
     changeMode() {
