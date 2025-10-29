@@ -124,7 +124,7 @@ class HeuristicAgent:
                 eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, True, alphabeta)
                 minEval = min(minEval, eval)
                 if alphabeta:
-                    beta = max(beta, eval)
+                    beta = min(beta, eval)
                     if beta <= alpha:
                         break
             return minEval
