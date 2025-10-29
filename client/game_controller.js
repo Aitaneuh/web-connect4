@@ -28,19 +28,26 @@ export default class GameController {
             this.renderer.setStatus(this.mode === 'local'
                 ? `Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'} wins!`
                 : this.game.currentPlayer === 1 ? 'You won!' : 'AI wins!');
-            this.renderer._highlightWin(result.cells)
+            this.renderer.highlightWin(result.cells)
             return;
+        }
+
+        var valid_moves = this._getValidMoves()
+        if (valid_moves.length == 0) {
+            this.renderer.highlightDraw()
+            this.renderer.setStatus("Draw !")
+            return
         }
 
         if (this.mode === 'local') {
             this.renderer.setStatus(`Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'}'s turn`);
         } else if (this.mode === 'random' && this.game.currentPlayer === 2) {
             this.isHumanTurn = false;
-            this.renderer.setStatus(`Random AI's turn...`);
+            this.renderer.setStatus(`AI's turn...`);
             setTimeout(() => this.randomAIMove(), 300);
         } else if (typeof this.mode === "string" && this.mode.startsWith('heuristic') && this.game.currentPlayer === 2) {
             this.isHumanTurn = false;
-            this.renderer.setStatus("Smart AI's turn...");
+            this.renderer.setStatus("AI's turn...");
             setTimeout(() => this.heuristicAlgorithm(this.mode[9]), 300);
         } else if (this.mode !== 'random' && this.mode !== 'local' && this.game.currentPlayer === 2) {
             this.renderer.setStatus("AI's turn...");

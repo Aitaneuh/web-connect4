@@ -36,16 +36,31 @@ export default class Renderer {
         this.statusEl.textContent = text;
     }
 
-    _highlightWin(winningCells) {
-    const boardCells = this.boardEl.querySelectorAll('.cell');
+    highlightWin(winningCells) {
+        const boardCells = this.boardEl.querySelectorAll('.cell');
 
-    boardCells.forEach(cell => {
-        const row = parseInt(cell.dataset.row);
-        const col = parseInt(cell.dataset.col);
+        boardCells.forEach(cell => {
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
 
-        const isWinningCell = winningCells.some(([r, c]) => r === row && c === col);
+            const isWinningCell = winningCells.some(([r, c]) => r === row && c === col);
 
-        if (!isWinningCell) {
+            if (!isWinningCell) {
+                if (cell.classList.contains("player1")) {
+                    cell.classList.remove("player1");
+                    cell.classList.add("player1gray");
+                } else if (cell.classList.contains("player2")) {
+                    cell.classList.remove("player2");
+                    cell.classList.add("player2gray");
+                }
+            }
+        });
+    }
+
+    highlightDraw() {
+        const boardCells = this.boardEl.querySelectorAll('.cell');
+
+        boardCells.forEach(cell => {
             if (cell.classList.contains("player1")) {
                 cell.classList.remove("player1");
                 cell.classList.add("player1gray");
@@ -53,8 +68,7 @@ export default class Renderer {
                 cell.classList.remove("player2");
                 cell.classList.add("player2gray");
             }
-        }
-    });
-}
+        });
+    }
 
 }

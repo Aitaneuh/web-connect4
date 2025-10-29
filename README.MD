@@ -29,7 +29,7 @@ This setup makes it easy to plug in new AI algorithms or modify existing ones.
 
 ---
 
-## 🧩 Project Structure
+## Project Structure
 
 ```
 
@@ -101,7 +101,7 @@ This drastically reduces computation time, allowing deeper searches with the sam
 
 ---
 
-### 🖥️ Backend (Flask Server)
+### Backend (Flask Server)
 
 1. Navigate to the `server` folder:
 
@@ -119,7 +119,7 @@ This drastically reduces computation time, allowing deeper searches with the sam
 
 ---
 
-### 🌐 Frontend (Web Client)
+### Frontend (Web Client)
 
 1. Open the `client/index.html` file directly in your browser
    *(or serve it with a lightweight server such as VSCode Live Server).*
