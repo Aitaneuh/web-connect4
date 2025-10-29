@@ -5,6 +5,7 @@ import time
 class HeuristicAgent:
     def __init__(self, max_depth=2):
         self.max_depth = max_depth
+        self.simulated_moves = 0
 
     def get_next_open_row(self, board: list[list[str]], col: int, ROWS: int):
         for r in range(ROWS - 1, -1, -1):
@@ -39,7 +40,7 @@ class HeuristicAgent:
         return False
 
     def simulate_move(self, board, col, piece):
-        """Returns a copy of the board after playing in given column"""
+        self.simulated_moves += 1
         temp_board = [row[:] for row in board]
         row = self.get_next_open_row(temp_board, col, len(board))
         if row is not None:
@@ -63,7 +64,6 @@ class HeuristicAgent:
         return score
 
     def evaluate_board(self, board: list[list[str]], piece: str) -> int:
-        """Simple heuristic score: +10 if AI wins, -10 if opponent wins, else 0"""
         score = 0
         ROWS = len(board)
         COLUMNS = len(board[0])
@@ -132,6 +132,7 @@ class HeuristicAgent:
 
 
     def play(self, board: list[list[str]], valid_moves: list[int], depth: int) -> int:
+        self.simulated_moves = 0
         start = time.time()
         ROWS = len(board)
         COLUMNS = len(board[0])
@@ -154,8 +155,9 @@ class HeuristicAgent:
 
 
 
-        print(f"Depth: {depth} | Best move: {best_col} | Score: {best_score}")
+        print(f"Depth: {depth} | Best move: {best_col} | Score: {best_score} | Simulated Moves : {self.simulated_moves}")
         print("Execution time:", time.time() - start, "s")
+        self.simulated_moves = 0
         return best_col
 
     def check_critic_move(self, board, ROWS, COLUMNS, valid_moves, piece):
