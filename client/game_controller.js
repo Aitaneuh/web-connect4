@@ -1,10 +1,11 @@
 import Connect4 from "./game.js";
 
 export default class GameController {
-    constructor(modeSel, resetBtn, renderer) {
+    constructor(modeSel, resetBtn, renderer, checkbox) {
         this.modeSel = modeSel;
         this.resetBtn = resetBtn;
         this.renderer = renderer;
+        this.checkbox = checkbox;
         this.game = new Connect4();
         this.mode = modeSel.value;
         this.isHumanTurn = true;
@@ -80,13 +81,18 @@ export default class GameController {
 
     async heuristicAlgorithm(depth) {
         let boardFormatted = this._getFormatedBoardForAPI()
+        let alphabetaBool = false
 
         const validMoves = this._getValidMoves()
+        
+        if (this.checkbox.checked) {
+            alphabetaBool = true
+        }
 
         const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth})
+            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool})
         });
 
         const data = await response.json();

@@ -17,8 +17,9 @@ def get_move():
     board = data["board"]
     valid_moves = data["valid_moves"]
     depth = data["depth"]
+    alphabeta = data["alphabeta"]
 
-    move = heuristic_agent.play(board, valid_moves, int(depth))
+    move = heuristic_agent.play(board, valid_moves, int(depth), alphabeta)
 
     return jsonify({"move": move})
 

@@ -96,7 +96,7 @@ class HeuristicAgent:
 
         return score
 
-    def minimax(self, board, valid_moves, alpha, beta, depth, maximizingPlayer):
+    def minimax(self, board, valid_moves, alpha, beta, depth, maximizingPlayer, alphabeta):
         if depth == 0 or self.is_winning_move(board, 'O') or self.is_winning_move(board, 'X'):
             if self.is_winning_move(board, 'O'):
                 return 1_000_000
@@ -109,9 +109,9 @@ class HeuristicAgent:
             maxEval = -inf
             for col in valid_moves:
                 new_board = self.simulate_move(board, col, 'O')
-                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, False)
+                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, False, alphabeta)
                 maxEval = max(maxEval, eval)
-                if depth > 5:
+                if alphabeta:
                     alpha = max(alpha, eval)
                     if beta <= alpha:
                         break
@@ -121,9 +121,9 @@ class HeuristicAgent:
             minEval = +inf
             for col in valid_moves:
                 new_board = self.simulate_move(board, col, 'X')
-                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, True)
+                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, True, alphabeta)
                 minEval = min(minEval, eval)
-                if depth > 5:
+                if alphabeta:
                     beta = max(beta, eval)
                     if beta <= alpha:
                         break
@@ -131,7 +131,7 @@ class HeuristicAgent:
 
 
 
-    def play(self, board: list[list[str]], valid_moves: list[int], depth: int) -> int:
+    def play(self, board: list[list[str]], valid_moves: list[int], depth: int, alphabeta: bool) -> int:
         self.simulated_moves = 0
         start = time.time()
         ROWS = len(board)
@@ -148,7 +148,7 @@ class HeuristicAgent:
 
         for col in valid_moves:
             new_board = self.simulate_move(board, col, "O")
-            score = self.minimax(new_board, valid_moves, float("-inf"), float("inf"), depth - 1, False)
+            score = self.minimax(new_board, valid_moves, float("-inf"), float("inf"), depth - 1, False, alphabeta)
             if score > best_score or (score == best_score and random.random() < 0.3):
                 best_score = score
                 best_col = col

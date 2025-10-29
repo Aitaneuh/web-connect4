@@ -129,3 +129,27 @@ h1 {
     transition-duration: 300ms;
     max-width: 1000px;
 }
+
+#sidenoteToggle {
+    padding: 15px;
+    font-size: smaller;
+    font-style: italic;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-family: 'JetBrains Mono';
+}
+
+#sidenoteToggle:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+#cbx {
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}

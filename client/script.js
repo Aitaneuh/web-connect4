@@ -6,13 +6,41 @@ const statusEl = document.getElementById('status');
 const resetBtn = document.getElementById('reset');
 const modeSel = document.getElementById('mode');
 const sidenoteLbl = document.getElementById('sidenote');
+const checkBox = document.getElementById('cbx');
+const checkBoxLabel = document.getElementById('cbxLbl');
+const sidenoteTgl = document.getElementById('sidenoteToggle');
 
 const renderer = new Renderer(boardEl, statusEl);
-const controller = new GameController(modeSel, resetBtn, renderer);
+const controller = new GameController(modeSel, resetBtn, renderer, checkBox);
 
 modeSel.addEventListener("change", () => {
     refreshSideNote()
+    handleCheckbox()
 });
+
+sidenoteTgl.addEventListener("click", () => {
+    toogleSidenote()
+});
+
+function toogleSidenote() {
+    if (sidenoteTgl.innerHTML == "hide sidenote") {
+        sidenoteLbl.style.display = "none"
+        sidenoteTgl.innerHTML = "show sidenote"
+    } else {
+        sidenoteLbl.style.display = "block"
+        sidenoteTgl.innerHTML = "hide sidenote"
+    }
+}
+
+function handleCheckbox() {
+    if (typeof modeSel.value === "string" && modeSel.value.startsWith('heuristic')) {
+        checkBox.style.display = "block"
+        checkBoxLabel.style.display = "block"
+    } else {
+        checkBox.style.display = "none"
+        checkBoxLabel.style.display = "none"
+    }
+}
 
 function refreshSideNote() {
     const mode = modeSel.value;
@@ -62,3 +90,4 @@ function refreshSideNote() {
 }
 
 refreshSideNote()
+handleCheckbox()
