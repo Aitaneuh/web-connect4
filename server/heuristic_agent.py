@@ -131,7 +131,7 @@ class HeuristicAgent:
 
 
 
-    def play(self, board: list[list[str]], valid_moves: list[int], depth: int, alphabeta: bool) -> int:
+    def play(self, board: list[list[str]], valid_moves: list[int], depth: int, alphabeta: bool):
         self.simulated_moves = 0
         start = time.time()
         ROWS = len(board)
@@ -140,8 +140,9 @@ class HeuristicAgent:
         critic_move = self.check_critic_move(board, ROWS, COLUMNS, valid_moves, "O")
         if critic_move[0]:
             print("Critical move detected.")
-            print("Execution time:", time.time() - start, "s")
-            return critic_move[1] # type: ignore
+            execTime = time.time() - start
+            print("Execution time:", execTime, "s")
+            return critic_move[1], execTime, 7 # type: ignore
 
         best_score = float("-inf")
         best_col = random.choice(valid_moves)
@@ -156,9 +157,9 @@ class HeuristicAgent:
 
 
         print(f"Depth: {depth} | Best move: {best_col} | Score: {best_score} | Simulated Moves : {self.simulated_moves}")
-        print("Execution time:", time.time() - start, "s")
-        self.simulated_moves = 0
-        return best_col
+        execTime = time.time() - start
+        print("Execution time:", execTime, "s")
+        return best_col, execTime, self.simulated_moves
 
     def check_critic_move(self, board, ROWS, COLUMNS, valid_moves, piece):
         for piece_loop in [0, 1]:

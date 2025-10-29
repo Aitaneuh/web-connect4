@@ -71,4 +71,11 @@ export default class Renderer {
         });
     }
 
+    updateRes(newResTim, newResCount) {
+        const resTimeVal = document.getElementById("resTimeVal");
+        const resCountVal = document.getElementById("resCountVal");
+        resTimeVal.textContent = `${newResTim.toFixed(3)} s`;
+        resCountVal.textContent = newResCount.toLocaleString("en-US");
+    }
+
 }

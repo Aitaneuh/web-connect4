@@ -10,12 +10,18 @@ const checkBox = document.getElementById('cbx');
 const checkBoxLabel = document.getElementById('cbxLbl');
 const sidenoteTgl = document.getElementById('sidenoteToggle');
 
+const resTimeLbl = document.getElementById("resTimeLbl");
+const resTimeVal = document.getElementById("resTimeVal");
+const resCountLbl = document.getElementById("resCountLbl");
+const resCountVal = document.getElementById("resCountVal");
+
 const renderer = new Renderer(boardEl, statusEl);
 const controller = new GameController(modeSel, resetBtn, renderer, checkBox);
 
 modeSel.addEventListener("change", () => {
     refreshSideNote()
     handleCheckbox()
+    handleResults()
 });
 
 sidenoteTgl.addEventListener("click", () => {
@@ -29,6 +35,23 @@ function toogleSidenote() {
     } else {
         sidenoteLbl.style.display = "block"
         sidenoteTgl.innerHTML = "hide sidenote"
+    }
+}
+
+function handleResults() {
+    if (typeof modeSel.value === "string" && modeSel.value.startsWith('heuristic')) {
+        resTimeLbl.style.display = "block";
+        resTimeVal.style.display = "block";
+        resCountLbl.style.display = "block";
+        resCountVal.style.display = "block";
+        
+        resTimeVal.textContent = "-";
+        resCountVal.textContent = "-";
+    } else {
+        resTimeLbl.style.display = "none";
+        resTimeVal.style.display = "none";
+        resCountLbl.style.display = "none";
+        resCountVal.style.display = "none";
     }
 }
 
@@ -78,7 +101,7 @@ function refreshSideNote() {
             sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
             sidenoteLbl.innerHTML += "\n\nDepth 5, the final boss. Can set up trap 3 turn in advance and see oppenents traps 2 turn in advance which makes him untrappable for a human."
             break;
-        
+
         case "heuristic6":
             sidenoteLbl.innerHTML = "A heuristic algorithm simulates future moves up to a certain depth, evaluates each possible outcome, and chooses the move that seems most promising based on its analysis."
             sidenoteLbl.innerHTML += "\n\nDepth 6 + Alph Beta Pruning, the final boss but even further and even faster. Increase depth but faster because it skips path when he understand that they lead to nothing better than he already have."
@@ -91,3 +114,4 @@ function refreshSideNote() {
 
 refreshSideNote()
 handleCheckbox()
+handleResults()

@@ -19,9 +19,9 @@ def get_move():
     depth = data["depth"]
     alphabeta = data["alphabeta"]
 
-    move = heuristic_agent.play(board, valid_moves, int(depth), alphabeta)
+    result = heuristic_agent.play(board, valid_moves, int(depth), alphabeta)
 
-    return jsonify({"move": move})
+    return jsonify({"move": result[0], "resTime": result[1], "resCount": result[2]}) # type: ignore
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)

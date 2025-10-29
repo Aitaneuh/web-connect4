@@ -84,7 +84,7 @@ export default class GameController {
         let alphabetaBool = false
 
         const validMoves = this._getValidMoves()
-        
+
         if (this.checkbox.checked) {
             alphabetaBool = true
         }
@@ -97,6 +97,7 @@ export default class GameController {
 
         const data = await response.json();
         const col = data.move;
+        this.renderer.updateRes(data.resTime, data.resCount)
 
         this.isHumanTurn = true;
         this.handleMove(col);

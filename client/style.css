@@ -94,6 +94,19 @@ h1 {
     margin-right: 5px;
 }
 
+.topBoard {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.topBoard label {
+    font-size: 1rem;
+    color: #fff;
+    margin-right: 5px;
+}
+
 #mode {
     padding: 10px 20px;
     font-size: 1rem;
