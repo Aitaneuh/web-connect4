@@ -22,6 +22,7 @@ modeSel.addEventListener("change", () => {
     refreshSideNote()
     handleCheckbox()
     handleResults()
+    handlePageTitle()
 });
 
 sidenoteTgl.addEventListener("click", () => {
@@ -149,8 +150,20 @@ function refreshSideNote() {
     }
 }
 
+function handlePageTitle() {
+    let pageTitle = document.getElementById("pageTitle")
+    if (modeSel.value.startsWith("heuristic")) {
+        pageTitle.innerText = "C4 - " + "Depth " + modeSel.value[9]
+    } else {
+        pageTitle.innerText = "C4 - " + capitalizeFirstLetter(modeSel.value)
+    }
+}
 
+function capitalizeFirstLetter(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
 
 refreshSideNote()
 handleCheckbox()
 handleResults()
+handlePageTitle()

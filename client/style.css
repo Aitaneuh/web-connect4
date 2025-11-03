@@ -152,6 +152,7 @@ h1 {
     border-color: transparent;
     color: white;
     font-family: 'JetBrains Mono';
+    cursor: pointer;
 }
 
 #sidenoteToggle:hover {
@@ -165,4 +166,14 @@ h1 {
   height: 25px;
   width: 25px;
   background-color: #eee;
+}
+
+#cbx:hover {
+    transition: transform 0.1s ease-in-out;
+    transform: scale(1.2);
+
+}
+
+#cbxLbl {
+    cursor: pointer;
 }
