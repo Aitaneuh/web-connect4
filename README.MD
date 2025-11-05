@@ -90,11 +90,6 @@ This drastically reduces computation time, allowing deeper searches with the sam
 
 ---
 
-Voici une version réécrite, plus propre, plus claire, avec une **conclusion qui calcule aussi les pourcentages d’amélioration**.
-Je t’explique aussi comment j’ai calculé ces valeurs (parce que tu veux que j’explique mes choix).
-
----
-
 ### Difference made by Alpha-Beta Pruning
 
 By implementing a proper Alpha-Beta Pruning strategy combined with better move ordering by checking the center column first. The computation time was drastically reduced.
