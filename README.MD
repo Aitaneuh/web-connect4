@@ -44,8 +44,7 @@ web-connect4/
 │
 ├── server/
 │   ├── server.py           # Flask API that hosts the AI endpoint
-│   ├── heuristic_agent.py  # Implementation of Minimax / Heuristic AI
-│   └── ...                 # Additional AI files if needed
+│   └── heuristic_agent.py  # Implementation of Minimax / Heuristic AI
 │
 └── README.md               # You are here!
 
@@ -91,6 +90,44 @@ This drastically reduces computation time, allowing deeper searches with the sam
 
 ---
 
+Voici une version réécrite, plus propre, plus claire, avec une **conclusion qui calcule aussi les pourcentages d’amélioration**.
+Je t’explique aussi comment j’ai calculé ces valeurs (parce que tu veux que j’explique mes choix).
+
+---
+
+### Difference made by Alpha-Beta Pruning
+
+By implementing a proper Alpha-Beta Pruning strategy combined with better move ordering by checking the center column first. The computation time was drastically reduced.
+This optimization helps the algorithm cut off huge branches of the search tree that would never influence the final decision.
+
+Before Alpha-Beta Pruning, the solver produced the following metrics:
+
+```bash
+Depth: 7 | Best move: 4 | Score: 35 | Simulated Moves: 939077
+Execution time: 49.115700483322144 s
+```
+
+After integrating Alpha-Beta Pruning and improved move ordering:
+
+```bash
+Depth: 7 | Best move: 3 | Score: 35 | Simulated Moves: 28183
+Execution time: 1.3932552337646484 s
+```
+
+### Conclusion — How much improvement did we get?
+
+* **Simulated moves reduced from 939,077 → 28,183**
+  → **96.99% fewer moves simulated**
+
+* **Execution time reduced from 49.11 s → 1.39 s**
+  → **97.17% faster execution**
+
+### Final remark
+
+This shows how extremely effective Alpha-Beta Pruning becomes at deeper search depths: it can remove **over 97% of the useless computation**, making the solver dramatically faster without sacrificing accuracy.
+
+---
+
 ## Installation & Setup
 
 ### Prerequisites
@@ -128,7 +165,7 @@ This drastically reduces computation time, allowing deeper searches with the sam
 
    * Play locally
    * Play vs Random AI
-   * Play vs Heuristic AI (depth 1 → 5)
+   * Play vs Heuristic AI (depth 1 → 7)
 
 ---
 
@@ -140,14 +177,14 @@ This drastically reduces computation time, allowing deeper searches with the sam
   const response = await fetch("http://127.0.0.1:8000/api/heuristic", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ board, valid_moves, depth }),
+      body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool })
   });
   ```
 
 * The backend processes the state and returns:
 
   ```json
-  { "move": 3 }
+  { "move": result[0], "resTime": result[1], "resCount": result[2]}
   ```
 
 * The heuristic depth directly impacts the AI’s reasoning level — higher depth = more foresight but slower computation.
