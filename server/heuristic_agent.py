@@ -54,14 +54,14 @@ class HeuristicAgent:
         opp_piece = 'O' if piece == 'X' else 'X'
 
         if window.count(piece) == 4:
-            score += 100
+            score += 10000
         elif window.count(piece) == 3 and window.count(' ') == 1:
-            score += 5
+            score += 50
         elif window.count(piece) == 2 and window.count(' ') == 2:
-            score += 2
+            score += 5
 
         if window.count(opp_piece) == 3 and window.count(' ') == 1:
-            score -= 4
+            score -= 80
 
         return score
 
@@ -72,7 +72,7 @@ class HeuristicAgent:
 
         center_array = [board[r][COLUMNS//2] for r in range(ROWS)]
         center_count = center_array.count(piece)
-        score += center_count * 3
+        score += center_count * 15
 
         for r in range(ROWS):
             row_array = board[r]
@@ -106,12 +106,20 @@ class HeuristicAgent:
                 return -1_000_000
             else:
                 return self.evaluate_board(board, 'O')
+            
+        optimized_col_order = [3, 2, 4, 1, 5, 0, 6]
+        optimized_ordered_col = []
+        for optimized_col in optimized_col_order:
+            if optimized_col in valid_moves:
+                optimized_ordered_col.append(optimized_col)
+
 
         if maximizingPlayer:
             maxEval = -inf
-            for col in valid_moves:
+            for col in optimized_ordered_col:
                 new_board = self.simulate_move(board, col, 'O')
-                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, False, alphabeta)
+                new_valid_moves = self.get_valid_moves(new_board)
+                eval = self.minimax(new_board, new_valid_moves, alpha, beta, depth - 1, False, alphabeta)
                 maxEval = max(maxEval, eval)
                 if alphabeta:
                     alpha = max(alpha, eval)
@@ -121,9 +129,10 @@ class HeuristicAgent:
 
         else:
             minEval = +inf
-            for col in valid_moves:
+            for col in optimized_ordered_col:
                 new_board = self.simulate_move(board, col, 'X')
-                eval = self.minimax(new_board, valid_moves, alpha, beta, depth - 1, True, alphabeta)
+                new_valid_moves = self.get_valid_moves(new_board)
+                eval = self.minimax(new_board, new_valid_moves, alpha, beta, depth - 1, True, alphabeta)
                 minEval = min(minEval, eval)
                 if alphabeta:
                     beta = min(beta, eval)
@@ -149,9 +158,16 @@ class HeuristicAgent:
         best_score = float("-inf")
         best_col = random.choice(valid_moves)
 
-        for col in valid_moves:
+        optimized_col_order = [3, 2, 4, 1, 5, 0, 6]
+        optimized_ordered_col = []
+        for optimized_col in optimized_col_order:
+            if optimized_col in valid_moves:
+                optimized_ordered_col.append(optimized_col)
+
+        for col in optimized_ordered_col:
             new_board = self.simulate_move(board, col, "O")
-            score = self.minimax(new_board, valid_moves, float("-inf"), float("inf"), depth - 1, False, alphabeta)
+            new_valid_moves = self.get_valid_moves(new_board)
+            score = self.minimax(new_board, new_valid_moves, float("-inf"), float("inf"), depth - 1, False, alphabeta)
             if score > best_score or (score == best_score and random.random() < 0.3):
                 best_score = score
                 best_col = col
@@ -199,3 +215,6 @@ class HeuristicAgent:
             else:
                 piece = "X"
         return (False, None)
+    
+    def get_valid_moves(self, board: list[list[int]]):
+        return [c for c in range(len(board[0])) if board[0][c] == " "]
