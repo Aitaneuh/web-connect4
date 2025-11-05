@@ -178,7 +178,7 @@ This shows how extremely effective Alpha-Beta Pruning becomes at deeper search d
 
 * The backend processes the state and returns:
 
-  ```json
+  ```python
   { "move": result[0], "resTime": result[1], "resCount": result[2]}
   ```
 
