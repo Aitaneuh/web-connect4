@@ -7,7 +7,9 @@ const resetBtn = document.getElementById('reset');
 const modeSel = document.getElementById('mode');
 const sidenoteLbl = document.getElementById('sidenote');
 const checkBox = document.getElementById('cbx');
+const firstCheckBox = document.getElementById('first');
 const checkBoxLabel = document.getElementById('cbxLbl');
+const firstLabel = document.getElementById('firstLbl');
 const sidenoteTgl = document.getElementById('sidenoteToggle');
 
 const resTimeLbl = document.getElementById("resTimeLbl");
@@ -16,7 +18,7 @@ const resCountLbl = document.getElementById("resCountLbl");
 const resCountVal = document.getElementById("resCountVal");
 
 const renderer = new Renderer(boardEl, statusEl);
-const controller = new GameController(modeSel, resetBtn, renderer, checkBox);
+const controller = new GameController(modeSel, resetBtn, renderer, checkBox, firstCheckBox);
 
 modeSel.addEventListener("change", () => {
     refreshSideNote()
@@ -63,6 +65,14 @@ function handleCheckbox() {
     } else {
         checkBox.style.display = "none"
         checkBoxLabel.style.display = "none"
+    }
+
+    if (modeSel.value == "local") {
+        firstCheckBox.style.display = "none"
+        firstLabel.style.display = "none"
+    } else {
+        firstCheckBox.style.display = "block"
+        firstLabel.style.display = "block"
     }
 }
 
@@ -167,3 +177,4 @@ refreshSideNote()
 handleCheckbox()
 handleResults()
 handlePageTitle()
+controller.playFirstMove()

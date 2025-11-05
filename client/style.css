@@ -160,7 +160,7 @@ h1 {
     transition: transform 0.1s ease-in-out;
 }
 
-#cbx {
+.cbx {
   top: 0;
   left: 0;
   height: 25px;
@@ -168,12 +168,12 @@ h1 {
   background-color: #eee;
 }
 
-#cbx:hover {
+.cbx:hover {
     transition: transform 0.1s ease-in-out;
     transform: scale(1.2);
 
 }
 
-#cbxLbl {
+.cbxLbl {
     cursor: pointer;
 }

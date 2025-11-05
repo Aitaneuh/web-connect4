@@ -1,14 +1,16 @@
 import Connect4 from "./game.js";
 
 export default class GameController {
-    constructor(modeSel, resetBtn, renderer, checkbox) {
+    constructor(modeSel, resetBtn, renderer, checkbox, firstCheckBox) {
         this.modeSel = modeSel;
         this.resetBtn = resetBtn;
         this.renderer = renderer;
         this.checkbox = checkbox;
+        this.firstCheckBox = firstCheckBox;
         this.game = new Connect4();
         this.mode = modeSel.value;
         this.isHumanTurn = true;
+        this.isIAFirstMove = false;
 
         this.renderer.createBoard(this.game.rows, this.game.cols, col => this.handleMove(col));
         this.renderer.updateBoard(this.game.board);
@@ -16,29 +18,36 @@ export default class GameController {
 
         this.resetBtn.addEventListener('click', () => this.reset());
         this.modeSel.addEventListener('change', () => this.changeMode());
+        this.firstCheckBox.addEventListener('change', () => this.reset());
     }
 
     handleMove(col) {
         if (this.game.gameOver || !this.isHumanTurn) return;
 
-        const result = this.game.playMove(col);
-        if (!result) return;
-        this.renderer.updateBoard(this.game.board);
+        if (!this.isIAFirstMove) {
+            const result = this.game.playMove(col);
+            if (!result) return;
+            this.renderer.updateBoard(this.game.board);
 
-        if (result.winner) {
-            this.renderer.setStatus(this.mode === 'local'
-                ? `Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'} wins!`
-                : this.game.currentPlayer === 1 ? 'You won!' : 'AI wins!');
-            this.renderer.highlightWin(result.cells)
-            return;
-        }
+            if (result.winner) {
+                this.renderer.setStatus(this.mode === 'local'
+                    ? `Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'} wins!`
+                    : this.game.currentPlayer === 1 ? 'You won!' : 'AI wins!');
+                this.renderer.highlightWin(result.cells)
+                return;
+            }
 
-        var valid_moves = this._getValidMoves()
-        if (valid_moves.length == 0) {
-            this.renderer.highlightDraw()
-            this.renderer.setStatus("Draw !")
-            return
+            var valid_moves = this._getValidMoves()
+            if (valid_moves.length == 0) {
+                this.renderer.highlightDraw()
+                this.renderer.setStatus("Draw !")
+                return
+            }
+
         }
+        this.isIAFirstMove = false
+        
+
 
         if (this.mode === 'local') {
             this.renderer.setStatus(`Player ${this.game.currentPlayer === 1 ? 'Red' : 'Yellow'}'s turn`);
@@ -92,7 +101,7 @@ export default class GameController {
         const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool})
+            body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool })
         });
 
         const data = await response.json();
@@ -112,10 +121,21 @@ export default class GameController {
         const resCountVal = document.getElementById("resCountVal");
         resTimeVal.textContent = "-"
         resCountVal.textContent = "-"
+        this.playFirstMove()
     }
 
     changeMode() {
         this.mode = this.modeSel.value;
         this.reset();
+    }
+
+    playFirstMove() {
+        if (this.firstCheckBox.checked) {
+            return
+        }
+
+        this.game.currentPlayer = 2
+        this.isIAFirstMove = true
+        this.handleMove(0)
     }
 }
