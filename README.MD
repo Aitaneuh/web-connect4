@@ -21,7 +21,7 @@ This project explores fundamental AI algorithms such as **Minimax** and **Alpha-
 
 - Play locally (2 players on the same device)
 - Play against a **random-move algorithm**
-- Challenge progressively smarter **heuristic AI agents** (depth 1 to 6)
+- Challenge progressively smarter **heuristic AI agents** (depth 1 to 7)
 - Visually observe how AI decisions change with increasing search depth
 
 The backend Python server computes AI moves and communicates with the frontend through a **simple Fetch API** interface.  
