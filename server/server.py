@@ -24,4 +24,4 @@ def get_move():
     return jsonify({"move": result[0], "resTime": result[1], "resCount": result[2]}) # type: ignore
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000, debug=True)
+    app.run(host="157.26.121.153", port=8000, debug=True)

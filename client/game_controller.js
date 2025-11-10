@@ -98,7 +98,7 @@ export default class GameController {
             alphabetaBool = true
         }
 
-        const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
+        const response = await fetch('http://157.26.121.153:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool })
