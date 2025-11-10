@@ -3,8 +3,7 @@ import random
 import time
 
 class HeuristicAgent:
-    def __init__(self, max_depth=2):
-        self.max_depth = max_depth
+    def __init__(self):
         self.simulated_moves = 0
 
     def get_next_open_row(self, board: list[list[str]], col: int, ROWS: int):
