@@ -19,6 +19,7 @@ export default class GameController {
         this.resetBtn.addEventListener('click', () => this.reset());
         this.modeSel.addEventListener('change', () => this.changeMode());
         this.firstCheckBox.addEventListener('change', () => this.reset());
+        this.evalCheckBox = document.getElementById('eval');
     }
 
     handleMove(col) {
@@ -46,7 +47,7 @@ export default class GameController {
 
         }
         this.isIAFirstMove = false
-        
+
 
 
         if (this.mode === 'local') {
@@ -63,6 +64,10 @@ export default class GameController {
             this.renderer.setStatus("AI's turn...");
         } else {
             this.renderer.setStatus('Your turn');
+        }
+
+        if (this.evalCheckBox.checked) {
+            this.calculate_evaluation()
         }
     }
 
@@ -98,7 +103,7 @@ export default class GameController {
             alphabetaBool = true
         }
 
-        const response = await fetch('http://157.26.121.153:8000/api/heuristic', {
+        const response = await fetch('http://157.26.121.87:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool })
@@ -122,6 +127,7 @@ export default class GameController {
         resTimeVal.textContent = "-"
         resCountVal.textContent = "-"
         this.playFirstMove()
+        this.renderer.updateEvalBar(0)
     }
 
     changeMode() {
@@ -137,5 +143,46 @@ export default class GameController {
         this.game.currentPlayer = 2
         this.isIAFirstMove = true
         this.handleMove(0)
+    }
+
+    async calculate_evaluation() {
+        let boardFormatted = this._getFormatedBoardForAPI()
+        let piece = "X"
+        if (this.game.currentPlayer === 2) {
+            piece = "O"
+        }
+
+        this.getQuickEval(boardFormatted, piece)
+        this.getDeepEval(boardFormatted, piece)
+    }
+
+    async getQuickEval(board, piece) {
+        let originBoard = this._getFormatedBoardForAPI()
+        const res = await fetch("http://157.26.121.87:8000/api/eval/quick", {
+            method: "POST",
+            body: JSON.stringify({ board: board, piece: piece }),
+            headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await res.json();
+        if (JSON.stringify(originBoard) === JSON.stringify(this._getFormatedBoardForAPI())) {
+            this.renderer.updateEvalBar(data.score);
+        }
+
+    }
+
+    async getDeepEval(board, piece) {
+        let originBoard = this._getFormatedBoardForAPI()
+        const res = await fetch("http://157.26.121.87:8000/api/eval/deep", {
+            method: "POST",
+            body: JSON.stringify({ board: board, piece: piece }),
+            headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await res.json();
+
+        if (JSON.stringify(originBoard) === JSON.stringify(this._getFormatedBoardForAPI())) {
+            this.renderer.updateEvalBar(data.score);
+        }
     }
 }

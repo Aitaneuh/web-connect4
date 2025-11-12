@@ -21,7 +21,17 @@
         <div id="resCountLbl">Position calculated:</div>
         <div id="resCountVal">-</div>
     </div>
-    <div id="board"></div>
+    <div class="board-wrapper">
+        <div class="eval-wrapper" id="eval-wrapper">
+            <div id="eval-score">0.00</div>
+            <div class="eval-bar">
+                <div id="eval-fill"></div>
+            </div>
+        </div>
+
+        <div id="board"></div>
+    </div>
+
 
     <div class="controls">
         <button id="reset">Restart Game</button>
@@ -41,6 +51,8 @@
         <input type="checkbox" class="cbx" id="cbx">
         <label id="firstLbl" class="cbxLbl" for="first">Play First:</label>
         <input type="checkbox" class="cbx" id="first">
+        <label id="evalLbl" class="cbxLbl" for="eval">Evaluation:</label>
+        <input type="checkbox" class="cbx" id="eval">
     </div>
     <div id="sidenote"></div>
     <button id="sidenoteToggle">hide sidenote</div>

@@ -78,4 +78,13 @@ export default class Renderer {
         resCountVal.textContent = newResCount.toLocaleString("en-US");
     }
 
+    updateEvalBar(score) {
+        score = Math.max(-1000, Math.min(1000, score));
+        const ratio = (score + 1000) / 2000;
+        const percent = ratio * 100;
+
+        document.getElementById("eval-fill").style.height = percent + "%";
+        document.getElementById("eval-score").innerText = (score / 100).toFixed(2);
+    }
+
 }

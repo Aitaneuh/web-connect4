@@ -123,6 +123,14 @@ This shows how extremely effective Alpha-Beta Pruning becomes at deeper search d
 
 ---
 
+### DeepEval — Dual-Depth NegaMax Evaluator
+
+The evaluation system uses a **NegaMax algorithm** running at **two simultaneous depths (5 and 7)**.
+It always evaluates positions from the **Red (X) player’s point of view**. The shallower depth (5) provides an instant estimate, ensuring smooth real-time feedback, while the deeper search (7) refines the result after one or two seconds.
+This progressive evaluation approach delivers both responsiveness and accuracy, adapting dynamically to board changes without interrupting gameplay.
+
+---
+
 ## Installation & Setup
 
 ### Prerequisites

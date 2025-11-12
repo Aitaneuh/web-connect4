@@ -11,6 +11,9 @@ const firstCheckBox = document.getElementById('first');
 const checkBoxLabel = document.getElementById('cbxLbl');
 const firstLabel = document.getElementById('firstLbl');
 const sidenoteTgl = document.getElementById('sidenoteToggle');
+const evalCheckBox = document.getElementById('eval');
+const evalLabel = document.getElementById('evalLbl');
+const evalWrapper = document.getElementById('eval-wrapper');
 
 const resTimeLbl = document.getElementById("resTimeLbl");
 const resTimeVal = document.getElementById("resTimeVal");
@@ -41,6 +44,11 @@ function toogleSidenote() {
     }
 }
 
+evalCheckBox.addEventListener("change", () => {
+    evalWrapper.style.display = evalCheckBox.checked ? "flex" : "none";
+});
+
+
 function handleResults() {
     if (typeof modeSel.value === "string" && modeSel.value.startsWith('heuristic')) {
         resTimeLbl.style.display = "block";
@@ -68,11 +76,9 @@ function handleCheckbox() {
     }
 
     if (modeSel.value == "local") {
-        firstCheckBox.style.display = "none"
-        firstLabel.style.display = "none"
+        firstLabel.style.innerText = "Red First:"
     } else {
-        firstCheckBox.style.display = "block"
-        firstLabel.style.display = "block"
+        firstLabel.style.innerText = "Play First:"
     }
 }
 
@@ -174,7 +180,7 @@ function capitalizeFirstLetter(val) {
 }
 
 refreshSideNote()
-handleCheckbox()
 handleResults()
 handlePageTitle()
 controller.playFirstMove()
+handleCheckbox()
