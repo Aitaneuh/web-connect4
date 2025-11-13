@@ -103,7 +103,7 @@ export default class GameController {
             alphabetaBool = true
         }
 
-        const response = await fetch('http://157.26.121.87:8000/api/heuristic', {
+        const response = await fetch('http://127.0.0.1:8000/api/heuristic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ board: boardFormatted, valid_moves: validMoves, depth: depth, alphabeta: alphabetaBool })
@@ -158,7 +158,7 @@ export default class GameController {
 
     async getQuickEval(board, piece) {
         let originBoard = this._getFormatedBoardForAPI()
-        const res = await fetch("http://157.26.121.87:8000/api/eval/quick", {
+        const res = await fetch("http://127.0.0.1:8000/api/eval/quick", {
             method: "POST",
             body: JSON.stringify({ board: board, piece: piece }),
             headers: { "Content-Type": "application/json" }
@@ -173,7 +173,7 @@ export default class GameController {
 
     async getDeepEval(board, piece) {
         let originBoard = this._getFormatedBoardForAPI()
-        const res = await fetch("http://157.26.121.87:8000/api/eval/deep", {
+        const res = await fetch("http://127.0.0.1:8000/api/eval/deep", {
             method: "POST",
             body: JSON.stringify({ board: board, piece: piece }),
             headers: { "Content-Type": "application/json" }
